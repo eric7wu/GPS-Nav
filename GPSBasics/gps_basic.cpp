@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include "gps_basic.h"
 #define PI 3.1415926535
 #define R 6371000
 
@@ -55,11 +56,11 @@ double angle_change(double dis)
         return hypo_change;
 }
 
-int main(void)
+/*int main(void)
 {
         double dis = distance(lat1, lon1, lat2, lon2);
         printf("Distance: %f meters\n", dis);
         printf("Bearing: %f (CW is positive, CCW is negative)\n", bearing(lat1, lon1, lat2, lon2));
         printf("Heading: %f (CW is positive, CCW is negative)\n", findHeading(heading, bearing(lat1, lon1, lat2, lon2)));
         printf("Hypothetical maximum angle change: %f", angle_change(dis));
-}
+}*/
