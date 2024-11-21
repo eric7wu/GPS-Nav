@@ -3,9 +3,17 @@
 #include <string>
 using namespace std;
 
-string retrieve(vector<string> coordinates, int pos)
+struct Coordinate
 {
-    return coordinates.at(pos - 1);
+    double lat;
+    double lon;
+};
+
+Coordinate retrieve(vector<string> coordinates, int pos)
+{
+    string co = coordinates.at(pos - 1);
+    Coordinate retrieved = {stod(co.substr(0, co.find(","))), stod(co.substr(co.find(",")+1))};
+    return retrieved;
 }
 
 vector<string> add_waypoint(vector<string> coordinates, string new_point, int pos)
@@ -42,7 +50,7 @@ vector<string> remove_waypoint(vector<string> coordinates, int pos)
 int main()
 {
     vector<string> coordinates = {"43.470746, -80.553317", "43.472182, -80.547994"};
-    cout << "Retrieved coordinate: " << retrieve(coordinates, 2) << endl;
+    cout << "Retrieved coordinate: " << retrieve(coordinates, 2).lat << ", " << retrieve(coordinates, 2).lon << endl; // cout isn't precise, but the values are accurate
     vector<string> new_coordinates = add_waypoint(coordinates, "43.400746, -80.603317", 1);
     cout << "Updated coordinates: ";
     for (int i = 0; i < new_coordinates.size(); i++)
