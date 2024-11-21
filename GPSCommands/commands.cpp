@@ -1,13 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "commands.h"
 using namespace std;
-
-struct Coordinate
-{
-    double lat;
-    double lon;
-};
 
 Coordinate retrieve(vector<string> coordinates, int pos)
 {
