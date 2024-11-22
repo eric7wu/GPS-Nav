@@ -7,6 +7,16 @@
 #include <stdio.h>
 #include <math.h>
 
+#define MIN(X)                                                                     \
+        if (bearing < 0)                                                           \
+        {                                                                          \
+                min = fabs(bearing) < bearing + 360.0 ? bearing : bearing + 360.0; \
+        }                                                                          \
+        else                                                                       \
+        {                                                                          \
+                min = bearing < fabs(bearing - 360.0) ? bearing : bearing - 360.0; \
+        }
+
 double RADIANS(double num);
 
 double distance(double lat1, double lon1, double lat2, double lon2);

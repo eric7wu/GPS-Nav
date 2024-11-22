@@ -4,12 +4,16 @@
 #define PI 3.1415926535
 #define R 6371000
 
-double lat1 = 43.473633;
-double lat2 = 43.473647;
-double lon1 = -80.540632;
-double lon2 = -80.540562;
+#define MIN(X)                                                                     \
+        if (bearing < 0)                                                           \
+        {                                                                          \
+                min = fabs(bearing) < bearing + 360.0 ? bearing : bearing + 360.0; \
+        }                                                                          \
+        else                                                                       \
+        {                                                                          \
+                min = bearing < fabs(bearing - 360.0) ? bearing : bearing - 360.0; \
+        }
 
-double heading = 359;
 double error = 1;
 
 double RADIANS(double num)
@@ -34,12 +38,13 @@ double bearing(double lat1, double lon1, double lat2, double lon2)
         double bearing = atan2(sin(lon2 - lon1) * cos(lat2),
                                cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(lon2 - lon1));
 
-        bearing = 180 * (bearing / PI);
+        bearing = 180.0 * (bearing / PI);
 
-        if (bearing < 0)
-                bearing += 360;
+        double min = 0;
 
-        return bearing;
+        MIN(bearing);
+
+        return min;
 }
 
 double findHeading(double heading, double bearing)
