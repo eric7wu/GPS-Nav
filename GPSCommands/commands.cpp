@@ -1,73 +1,79 @@
 #include <iostream>
 #include <vector>
-#include <string>
+#include <stdio.h>
 #include "commands.h"
 using namespace std;
 
-Coordinate retrieve(vector<string> coordinates, int pos)
+Coordinate retrieve(vector<Coordinate> coordinates, int pos)
 {
-    string co = coordinates.at(pos - 1);
-    Coordinate retrieved = {stod(co.substr(0, co.find(","))), stod(co.substr(co.find(",")+1))};
-    return retrieved;
+    if (pos < 1 || pos > coordinates.size())
+    {
+        cout << "Error; position out of bounds." << endl;
+        return coordinates[0]; // return current pos
+    }
+    else
+    {
+        return coordinates.at(pos - 1);
+    }
 }
 
-vector<string> add_waypoint(vector<string> coordinates, string new_point, int pos)
+vector<Coordinate> add_waypoint(vector<Coordinate> coordinates, Coordinate new_coordinate, int pos)
 {
-    vector<string> updated_coordinates;
-    for (int n = 0; n < coordinates.size(); n++)
+    if (pos < 1 || pos > coordinates.size())
     {
-        if (n + 1 == pos)
-        {
-            updated_coordinates.push_back(new_point);
-        }
-        if (n < coordinates.size())
-        {
-            updated_coordinates.push_back(coordinates.at(n));
-        }
+        cout << "Error; position out of bounds." << endl;
+        return coordinates;
     }
-    return updated_coordinates;
+    else
+    {
+        coordinates.insert(coordinates.begin() + (pos - 1), new_coordinate);
+        return coordinates;
+    }
 }
 
-vector<string> remove_waypoint(vector<string> coordinates, int pos)
+vector<Coordinate> remove_waypoint(vector<Coordinate> coordinates, int pos)
 {
-    vector<string> updated_coordinates;
-    for (int n = 0; n < coordinates.size(); n++)
+    if (pos < 1 || pos > coordinates.size())
     {
-        if (n + 1 != pos)
+        cout << "Error; position out of bounds." << endl;
+        return coordinates;
+    }
+    else
+    {
+        coordinates.erase(coordinates.begin() + (pos - 1));
+        return coordinates;
+    }
+}
+
+void print_coordinates(vector<Coordinate> coordinates)
+{
+    for (int i = 0; i < coordinates.size(); i++)
+    {
+        printf("%f, %f", coordinates[i].lat, coordinates[i].lon);
+        if (i != coordinates.size() - 1)
         {
-            updated_coordinates.push_back(coordinates.at(n));
+            printf(" | ");
         }
     }
-    return updated_coordinates;
+    printf("\n");
 }
 
 /*
 int main()
 {
-    vector<string> coordinates = {"43.470746, -80.553317", "43.472182, -80.547994"};
-    cout << "Retrieved coordinate: " << retrieve(coordinates, 2).lat << ", " << retrieve(coordinates, 2).lon << endl; // cout isn't precise, but the values are accurate
-    vector<string> new_coordinates = add_waypoint(coordinates, "43.400746, -80.603317", 1);
-    cout << "Updated coordinates: ";
-    for (int i = 0; i < new_coordinates.size(); i++)
-    {
-        cout << new_coordinates[i];
-        if (i != new_coordinates.size() - 1)
-        {
-            cout << " | ";
-        }
-    }
-    cout << endl;
+    vector<Coordinate> coordinates = {{43.470746, -80.553317}, {43.472182, -80.547994}};
+
+    Coordinate retrieved = retrieve(coordinates, 2);
+    printf("Retrieved coordinate: %f, %f\n", retrieved.lat, retrieved.lon);
+
+    vector<Coordinate> new_coordinates = add_waypoint(coordinates, {43.400746, -80.603317}, 2);
+    printf("Updated coordinates: ");
+    print_coordinates(new_coordinates);
+
     new_coordinates = remove_waypoint(new_coordinates, 2);
-    cout << "Updated coordinates: ";
-    for (int i = 0; i < new_coordinates.size(); i++)
-    {
-        cout << new_coordinates[i];
-        if (i != new_coordinates.size() - 1)
-        {
-            cout << " | ";
-        }
-    }
-    cout << endl;
+    printf("Updated coordinates: ");
+    print_coordinates(new_coordinates);
+
     return 0;
 }
 */

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+using namespace std;
 
 struct Coordinate
 {
@@ -10,10 +11,10 @@ struct Coordinate
     double lon;
 };
 
-Coordinate retrieve(const std::vector<std::string>& coordinates, int pos);
+Coordinate retrieve(vector<Coordinate> coordinates, int pos);
 
-std::vector<std::string> add_waypoint(const std::vector<std::string>& coordinates, const std::string& new_point, int pos);
+vector<Coordinate> add_waypoint(vector<Coordinate> coordinates, Coordinate new_point, int pos);
 
-std::vector<std::string> remove_waypoint(const std::vector<std::string>& coordinates, int pos);
+vector<Coordinate> remove_waypoint(vector<Coordinate> coordinates, int pos);
 
 #endif
