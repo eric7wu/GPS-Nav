@@ -5,6 +5,8 @@
 #include <math.h>
 #include <iostream>
 #include <vector>
+#include "../GPSBasics/gps_basic.h"
+#include "../GPSCommands/commands.h"
 using namespace std;
 
 #define PI 3.1415926535
@@ -18,14 +20,8 @@ typedef struct
         double angle;
 } directions;
 
-double RADIANS(double num);
+void mapping(vector<Coordinate> &coordinates, vector<directions> &map);
 
-double distance(double lat1, double lon1, double lat2, double lon2);
-
-double bearing(double lat1, double lon1, double lat2, double lon2);
-
-double findHeading(double heading, double bearing);
-
-double angle_change(double dis);
+void seeDirecs(vector<directions> map);
 
 #endif
