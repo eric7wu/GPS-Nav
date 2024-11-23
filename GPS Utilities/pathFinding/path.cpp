@@ -17,7 +17,7 @@ typedef struct
         double angle;
 } directions;
 
-void InitMapping(vector<Coordinate> &coordinates, vector<directions> &map)
+void mapping(vector<Coordinate> &coordinates, vector<directions> &map)
 {
         map = {};
         double head = 0.0;
@@ -33,33 +33,6 @@ void InitMapping(vector<Coordinate> &coordinates, vector<directions> &map)
         }
 }
 
-/*
-void addCoord(vector<Coordinate> &coordinates, Coordinate coord, int index, vector<directions> map)
-{
-        if (index >= 0 && index <= coordinates.size())
-        {
-                coordinates.insert(coordinates.begin() + index, coord);
-                mapping(coordinates, map);
-        }
-        else
-        {
-                printf("Index not in range\n");
-        }
-}
-
-void removeCoord(vector<Coordinate> &coordinates, int index, vector<directions> map)
-{
-        if (index >= 0 && index <= coordinates.size())
-        {
-                coordinates.erase(coordinates.begin() + index);
-                mapping(coordinates, map);
-        }
-        else
-        {
-                printf("Index not in range\n");
-        }
-}
-*/
 void seeCoords(vector<Coordinate> coordinates)
 {
         for (Coordinate p : coordinates)
@@ -73,7 +46,7 @@ void seeDirecs(vector<directions> map)
 {
         for (directions p : map)
         {
-                printf("Distance: %f, Angle: %f\n", p.magnitude, p.angle); // pointers are not pointing ot naything
+                printf("From (%f, %f), To (%f, %f):   Distance: %f, Angle: %f\n", p.from->lat, p.from->lon, p.to->lat, p.to->lon, p.magnitude, p.angle);
         }
         printf("\n");
 }
@@ -82,19 +55,11 @@ int main()
 {
         vector<Coordinate> coords = {{43.470746, -80.553317}, {43.472182, -80.547994}, {43.473633, -80.540632}, {43.473647, -80.540562}};
         vector<directions> map = {};
-        // mapInit(coords, map);
 
-        InitMapping(coords, map);
+        mapping(coords, map);
         seeDirecs(map);
-
-        Coordinate adds = {43.00000, -80.00000};
-        /*
-        addCoord(coords, adds, 4, map);
-
-        seeCoords(coords);
-
-        removeCoord(coords, 4, map);
-        seeCoords(coords);*/
+        mapping(coords, map);
+        seeDirecs(map);
 
         return 0;
 }
