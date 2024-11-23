@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
-#include "../GPSBasics/gps_basic.h"
-
+#include "../GPSBasics/gps_basic.cpp"
+#include "../GPSCommands/commands.cpp"
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -9,60 +9,37 @@ using namespace std;
 #define PI 3.1415926535
 #define R 6371000
 
-typedef struct point
+typedef struct
 {
-        double lat;
-        double lon;
-} point;
+        Coordinate *from;
+        Coordinate *to;
+        double magnitude;
+        double angle;
+} directions;
 
-double bearings(double lat1, double lon1, double lat2, double lon2)
+void InitMapping(vector<Coordinate> &coordinates, vector<directions> &map)
 {
-        lat1 = RADIANS(lat1);
-        lat2 = RADIANS(lat2);
-        lon1 = RADIANS(lon1);
-        lon2 = RADIANS(lon2);
-
-        double bearing = atan2(sin(lon2 - lon1) * cos(lat2),
-                               cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(lon2 - lon1));
-
-        bearing = 180 * (bearing / PI);
-
-        double min = 0;
-
-        if (bearing < 0)
-        {
-                min = fabs(bearing) < bearing + 360 ? bearing : bearing + 360;
-        }
-        else
-        {
-                min = bearing < fabs(bearing - 360) ? bearing : bearing - 360;
-        }
-
-        return min;
-}
-
-void mapping(vector<point> coordinates)
-{
+        map = {};
         double head = 0.0;
 
         for (int i = 1; i < coordinates.size(); ++i)
         {
                 double dis = distance(coordinates.at(i - 1).lat, coordinates.at(i - 1).lon, coordinates.at(i).lat, coordinates.at(i).lon);
-                double bear = bearings(coordinates.at(i - 1).lat, coordinates.at(i - 1).lon, coordinates.at(i).lat, coordinates.at(i).lon);
+                double bear = bearing(coordinates.at(i - 1).lat, coordinates.at(i - 1).lon, coordinates.at(i).lat, coordinates.at(i).lon);
                 double way = findHeading(head, bear);
-
-                printf("Distance (meters) from point %d to point %d: %f, Direction (+ cw, - ccw) to there: %f\n", i, i + 1, dis, way);
+                map.push_back({&coordinates.at(i - 1), &coordinates.at(i), dis, way});
 
                 head = bear;
         }
 }
 
-void addCoord(vector<point> &coordinates, point coord, int index)
+/*
+void addCoord(vector<Coordinate> &coordinates, Coordinate coord, int index, vector<directions> map)
 {
         if (index >= 0 && index <= coordinates.size())
         {
                 coordinates.insert(coordinates.begin() + index, coord);
-                mapping(coordinates);
+                mapping(coordinates, map);
         }
         else
         {
@@ -70,42 +47,54 @@ void addCoord(vector<point> &coordinates, point coord, int index)
         }
 }
 
-void removeCoord(vector<point> &coordinates, int index)
+void removeCoord(vector<Coordinate> &coordinates, int index, vector<directions> map)
 {
         if (index >= 0 && index <= coordinates.size())
         {
                 coordinates.erase(coordinates.begin() + index);
-                mapping(coordinates);
+                mapping(coordinates, map);
         }
         else
         {
                 printf("Index not in range\n");
         }
 }
-
-void seeCoords(vector<point> &coordinates)
+*/
+void seeCoords(vector<Coordinate> coordinates)
 {
-        for (point p : coordinates)
+        for (Coordinate p : coordinates)
         {
                 printf("Lat: %f, Lon: %f\n", p.lat, p.lon);
         }
         printf("\n");
 }
 
+void seeDirecs(vector<directions> map)
+{
+        for (directions p : map)
+        {
+                printf("Distance: %f, Angle: %f\n", p.magnitude, p.angle); // pointers are not pointing ot naything
+        }
+        printf("\n");
+}
+
 int main()
 {
-        vector<point> coords = {{43.470746, -80.553317}, {43.472182, -80.547994}, {43.473633, -80.540632}, {43.473647, -80.540562}};
+        vector<Coordinate> coords = {{43.470746, -80.553317}, {43.472182, -80.547994}, {43.473633, -80.540632}, {43.473647, -80.540562}};
+        vector<directions> map = {};
+        // mapInit(coords, map);
 
-        mapping(coords);
+        InitMapping(coords, map);
+        seeDirecs(map);
+
+        Coordinate adds = {43.00000, -80.00000};
+        /*
+        addCoord(coords, adds, 4, map);
+
         seeCoords(coords);
 
-        point adds = {43.00000, -80.00000};
-        addCoord(coords, adds, 4);
-
-        seeCoords(coords);
-
-        removeCoord(coords, 4);
-        seeCoords(coords);
+        removeCoord(coords, 4, map);
+        seeCoords(coords);*/
 
         return 0;
 }
