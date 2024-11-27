@@ -19,9 +19,14 @@ Coordinate retrieve(vector<Coordinate> coordinates, int pos)
 
 vector<Coordinate> add_waypoint(vector<Coordinate> coordinates, Coordinate new_coordinate, int pos)
 {
-    if (pos < 1 || pos > coordinates.size())
+    if (pos < 1)
     {
         cout << "Error; position out of bounds." << endl;
+        return coordinates;
+    }
+    else if (pos > coordinates.size()) // coordinate is added to the end of the vector
+    {
+        coordinates.push_back(new_coordinate);
         return coordinates;
     }
     else
@@ -44,36 +49,3 @@ vector<Coordinate> remove_waypoint(vector<Coordinate> coordinates, int pos)
         return coordinates;
     }
 }
-
-void print_coordinates(vector<Coordinate> coordinates)
-{
-    for (int i = 0; i < coordinates.size(); i++)
-    {
-        printf("%f, %f", coordinates[i].lat, coordinates[i].lon);
-        if (i != coordinates.size() - 1)
-        {
-            printf(" | ");
-        }
-    }
-    printf("\n");
-}
-
-/*
-int main()
-{
-    vector<Coordinate> coordinates = {{43.470746, -80.553317}, {43.472182, -80.547994}};
-
-    Coordinate retrieved = retrieve(coordinates, 2);
-    printf("Retrieved coordinate: %f, %f\n", retrieved.lat, retrieved.lon);
-
-    vector<Coordinate> new_coordinates = add_waypoint(coordinates, {43.400746, -80.603317}, 2);
-    printf("Updated coordinates: ");
-    print_coordinates(new_coordinates);
-
-    new_coordinates = remove_waypoint(new_coordinates, 2);
-    printf("Updated coordinates: ");
-    print_coordinates(new_coordinates);
-
-    return 0;
-}
-*/
