@@ -11,8 +11,8 @@ using namespace std;
 
 typedef struct
 {
-        Coordinate *from;
-        Coordinate *to;
+        Coordinate from;
+        Coordinate to;
         double magnitude;
         double angle;
 } directions;
@@ -27,7 +27,61 @@ void mapping(vector<Coordinate> &coordinates, vector<directions> &map)
                 double dis = distance(coordinates.at(i - 1).lat, coordinates.at(i - 1).lon, coordinates.at(i).lat, coordinates.at(i).lon);
                 double bear = bearing(coordinates.at(i - 1).lat, coordinates.at(i - 1).lon, coordinates.at(i).lat, coordinates.at(i).lon);
                 double way = findHeading(head, bear);
-                map.push_back({&coordinates.at(i - 1), &coordinates.at(i), dis, way});
+                map.push_back({coordinates.at(i - 1), coordinates.at(i), dis, way});
+
+                head = bear;
+        }
+}
+
+void Addmapping(vector<Coordinate> &coordinates, vector<directions> &map, int start, int end)
+{
+        double head = map.at(start - 2).angle;
+        if (start > 0 && end + 1 < coordinates.size())
+        {
+
+                double dis = distance(coordinates.at(start - 1).lat, coordinates.at(start - 1).lon, coordinates.at(start).lat, coordinates.at(start).lon);
+                double bear = bearing(coordinates.at(start - 1).lat, coordinates.at(start - 1).lon, coordinates.at(start).lat, coordinates.at(start).lon);
+                double way = findHeading(head, bear);
+                map.at(start - 1) = {coordinates.at(start - 1), coordinates.at(start), dis, way};
+
+                head = bear;
+        }
+        else if (start > 0)
+        {
+                double dis = distance(coordinates.at(start - 1).lat, coordinates.at(start - 1).lon, coordinates.at(start).lat, coordinates.at(start).lon);
+                double bear = bearing(coordinates.at(start - 1).lat, coordinates.at(start - 1).lon, coordinates.at(start).lat, coordinates.at(start).lon);
+                double way = findHeading(head, bear);
+                map.push_back({coordinates.at(start - 1), coordinates.at(start), dis, way});
+
+                head = bear;
+        }
+        // coords: {1, 2}, {2, 3}, {3, 4}, {4, 4}, {4,5 } //{3,4} & {4, 4} added, s = 2, e = 3
+
+        for (int i = start + 1; i < end + 1; ++i)
+        {
+                double dis = distance(coordinates.at(i - 1).lat, coordinates.at(i - 1).lon, coordinates.at(i).lat, coordinates.at(i).lon);
+                double bear = bearing(coordinates.at(i - 1).lat, coordinates.at(i - 1).lon, coordinates.at(i).lat, coordinates.at(i).lon);
+                double way = findHeading(head, bear);
+                map.insert(map.begin() + i - 1, {coordinates.at(i - 1), coordinates.at(i), dis, way});
+
+                head = bear;
+        }
+
+        if (end + 1 < coordinates.size())
+        {
+                double dis = distance(coordinates.at(end).lat, coordinates.at(end).lon, coordinates.at(end + 1).lat, coordinates.at(end + 1).lon);
+                double bear = bearing(coordinates.at(end).lat, coordinates.at(end).lon, coordinates.at(end + 1).lat, coordinates.at(end + 1).lon);
+                double way = findHeading(head, bear);
+                map.insert(map.begin() + end, {coordinates.at(end), coordinates.at(end + 1), dis, way});
+
+                head = bear;
+        }
+        else
+        {
+                double dis = distance(coordinates.at(end).lat, coordinates.at(end).lon, coordinates.at(end + 1).lat, coordinates.at(end + 1).lon);
+                double bear = bearing(coordinates.at(end).lat, coordinates.at(end).lon, coordinates.at(end + 1).lat, coordinates.at(end + 1).lon);
+                double way = findHeading(head, bear);
+                map.push_back({coordinates.at(end), coordinates.at(end + 1), dis, way});
 
                 head = bear;
         }
@@ -46,11 +100,24 @@ void seeDirecs(vector<directions> map)
 {
         for (directions p : map)
         {
-                printf("From (%f, %f), To (%f, %f):   Distance: %f, Angle: %f\n", p.from->lat, p.from->lon, p.to->lat, p.to->lon, p.magnitude, p.angle);
+                printf("From (%f, %f), To (%f, %f):   Distance: %f, Angle: %f\n", p.from.lat, p.from.lon, p.to.lat, p.to.lon, p.magnitude, p.angle);
         }
         printf("\n");
 }
 
+void addCoord(vector<Coordinate> &coordinates, Coordinate coord, int index, vector<directions> map)
+{
+        if (index >= 0 && index <= coordinates.size())
+        {
+                coordinates.insert(coordinates.begin() + index, coord);
+                // mapping(coordinates, map);
+        }
+        else
+        {
+                printf("Index not in range\n");
+        }
+}
+/*
 int main()
 {
         vector<Coordinate> coords = {{43.470746, -80.553317}, {43.472182, -80.547994}, {43.473633, -80.540632}, {43.473647, -80.540562}};
@@ -58,8 +125,13 @@ int main()
 
         mapping(coords, map);
         seeDirecs(map);
-        mapping(coords, map);
+
+        Coordinate adds = {43.00000, -80.00000};
+        addCoord(coords, adds, 4, map);
+        addCoord(coords, {43.5, -80.5}, 4, map);
+
+        Addmapping(coords, map, 4, 5);
         seeDirecs(map);
 
         return 0;
-}
+}*/
