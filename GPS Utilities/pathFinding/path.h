@@ -14,8 +14,8 @@ using namespace std;
 
 typedef struct
 {
-        Coordinate *from;
-        Coordinate *to;
+        Coordinate from;
+        Coordinate to;
         double magnitude;
         double angle;
 } directions;
