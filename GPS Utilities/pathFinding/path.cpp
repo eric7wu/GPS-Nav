@@ -101,19 +101,7 @@ void seeDirecs(vector<directions> map)
         printf("\n");
 }
 
-void addCoord(vector<Coordinate> &coordinates, Coordinate coord, int index, vector<directions> map)
-{
-        if (index >= 0 && index <= coordinates.size())
-        {
-                coordinates.insert(coordinates.begin() + index, coord);
-                // mapping(coordinates, map);
-        }
-        else
-        {
-                printf("Index not in range\n");
-        }
-}
-
+/*
 int main()
 {
         vector<Coordinate> coords = {{43.470746, -80.553317}, {43.472182, -80.547994}, {43.473633, -80.540632}, {43.473647, -80.540562}};
@@ -132,4 +120,4 @@ int main()
         seeDirecs(map);
 
         return 0;
-}
+}*/
