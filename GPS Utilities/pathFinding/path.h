@@ -24,4 +24,5 @@ void mapping(vector<Coordinate> &coordinates, vector<directions> &map);
 
 void seeDirecs(vector<directions> map);
 
+void Addmapping(vector<Coordinate> &coordinates, vector<directions> &map, int newIndex);
 #endif
