@@ -2,6 +2,7 @@
 #include <vector>
 #include <stdio.h>
 #include "commands.h"
+#include "../pathFinding/path.h"
 using namespace std;
 
 Coordinate retrieve(vector<Coordinate> coordinates, int pos)
@@ -17,7 +18,7 @@ Coordinate retrieve(vector<Coordinate> coordinates, int pos)
     }
 }
 
-vector<Coordinate> add_waypoint(vector<Coordinate> coordinates, Coordinate new_coordinate, int pos)
+vector<Coordinate> add_waypoint(vector<Coordinate> coordinates, Coordinate new_coordinate, int pos, vector<directions> &map)
 {
     if (pos < 1)
     {
@@ -27,11 +28,13 @@ vector<Coordinate> add_waypoint(vector<Coordinate> coordinates, Coordinate new_c
     else if (pos > coordinates.size()) // coordinate is added to the end of the vector
     {
         coordinates.push_back(new_coordinate);
+        Addmapping(coordinates, map, pos - 1);
         return coordinates;
     }
     else
     {
         coordinates.insert(coordinates.begin() + (pos - 1), new_coordinate);
+        Addmapping(coordinates, map, pos - 1);
         return coordinates;
     }
 }
@@ -49,3 +52,4 @@ vector<Coordinate> remove_waypoint(vector<Coordinate> coordinates, int pos)
         return coordinates;
     }
 }
+

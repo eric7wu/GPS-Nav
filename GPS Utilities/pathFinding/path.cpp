@@ -9,6 +9,7 @@ using namespace std;
 #define PI 3.1415926535
 #define R 6371000
 
+
 typedef struct
 {
         Coordinate from;
