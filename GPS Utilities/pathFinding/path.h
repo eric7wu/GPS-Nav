@@ -12,6 +12,12 @@ using namespace std;
 #define PI 3.1415926535
 #define R 6371000
 
+struct Coordinate
+{
+    double lat;
+    double lon;
+};
+
 typedef struct
 {
         Coordinate from;

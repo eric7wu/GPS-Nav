@@ -1,22 +1,13 @@
 #include <stdio.h>
 #include <math.h>
 #include "../GPSBasics/gps_basic.cpp"
-#include "../GPSCommands/commands.cpp"
+#include "../GPSCommands/commands.h"
 #include <iostream>
 #include <vector>
 using namespace std;
 
 #define PI 3.1415926535
 #define R 6371000
-
-
-typedef struct
-{
-        Coordinate from;
-        Coordinate to;
-        double magnitude;
-        double angle;
-} directions;
 
 void mapping(vector<Coordinate> &coordinates, vector<directions> &map)
 {

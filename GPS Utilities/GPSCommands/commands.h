@@ -7,12 +7,6 @@
 #include "../GPSBasics/gps_basic.h"
 using namespace std;
 
-struct Coordinate
-{
-    double lat;
-    double lon;
-};
-
 Coordinate retrieve(vector<Coordinate> coordinates, int pos);
 
 vector<Coordinate> add_waypoint(vector<Coordinate> coordinates, Coordinate new_point, int pos, vector<directions> &map);
