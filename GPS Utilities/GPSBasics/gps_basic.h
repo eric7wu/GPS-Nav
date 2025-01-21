@@ -4,18 +4,17 @@
 #define PI 3.1415926535
 #define R 6371000
 
-#include <stdio.h>
-#include <math.h>
+#include <cmath>
 
-#define MIN(X)                                                                     \
-        if (bearing < 0)                                                           \
-        {                                                                          \
-                min = fabs(bearing) < bearing + 360.0 ? bearing : bearing + 360.0; \
-        }                                                                          \
-        else                                                                       \
-        {                                                                          \
-                min = bearing < fabs(bearing - 360.0) ? bearing : bearing - 360.0; \
-        }
+#define MIN(X)                                                             \
+    if (bearing < 0)                                                       \
+    {                                                                      \
+        min = fabs(bearing) < bearing + 360.0 ? bearing : bearing + 360.0; \
+    }                                                                      \
+    else                                                                   \
+    {                                                                      \
+        min = bearing < fabs(bearing - 360.0) ? bearing : bearing - 360.0; \
+    }
 
 double RADIANS(double num);
 

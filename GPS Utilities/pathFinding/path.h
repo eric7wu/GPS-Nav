@@ -2,7 +2,7 @@
 #define PATH_H
 
 #include <stdio.h>
-#include <math.h>
+#include <cmath>
 #include <iostream>
 #include <vector>
 #include "../GPSBasics/gps_basic.h"
@@ -20,10 +20,10 @@ struct Coordinate
 
 typedef struct
 {
-        Coordinate from;
-        Coordinate to;
-        double magnitude;
-        double angle;
+    Coordinate from;
+    Coordinate to;
+    double magnitude;
+    double angle;
 } directions;
 
 void mapping(vector<Coordinate> &coordinates, vector<directions> &map);

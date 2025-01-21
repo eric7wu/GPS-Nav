@@ -28,7 +28,7 @@ vector<Coordinate> add_waypoint(vector<Coordinate> coordinates, Coordinate new_c
     else if (pos > coordinates.size()) // coordinate is added to the end of the vector
     {
         coordinates.push_back(new_coordinate);
-        Addmapping(coordinates, map, pos - 1);
+        Addmapping(coordinates, map, coordinates.size() - 1);
         return coordinates;
     }
     else
@@ -52,4 +52,3 @@ vector<Coordinate> remove_waypoint(vector<Coordinate> coordinates, int pos)
         return coordinates;
     }
 }
-
