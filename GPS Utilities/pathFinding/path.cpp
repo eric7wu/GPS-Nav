@@ -34,7 +34,7 @@ void Addmapping(vector<Coordinate> &coordinates, vector<directions> &map, int ne
         double dis = distance(coordinates.at(newIndex).lat, coordinates.at(newIndex).lon, coordinates.at(newIndex + 1).lat, coordinates.at(newIndex + 1).lon);
         double bear = bearing(coordinates.at(newIndex).lat, coordinates.at(newIndex).lon, coordinates.at(newIndex + 1).lat, coordinates.at(newIndex + 1).lon);
         double way = findHeading(0, bear);
-        printf("%f\n", bear);
+
         map.insert(map.begin(), {coordinates.at(0), coordinates.at(1), dis, way});
         map.at(1).angle = findHeading(way, map.at(1).angle);
     }
@@ -56,7 +56,6 @@ void Addmapping(vector<Coordinate> &coordinates, vector<directions> &map, int ne
         double way = findHeading(head, bear);
         map.at(newIndex - 1) = {coordinates.at(newIndex - 1), coordinates.at(newIndex), dis, way};
         head = bear;
-        printf("%f\n", bear);
 
         dis = distance(coordinates.at(newIndex).lat, coordinates.at(newIndex).lon, coordinates.at(newIndex + 1).lat, coordinates.at(newIndex + 1).lon);
         bear = bearing(coordinates.at(newIndex).lat, coordinates.at(newIndex).lon, coordinates.at(newIndex + 1).lat, coordinates.at(newIndex + 1).lon);

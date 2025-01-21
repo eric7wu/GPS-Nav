@@ -1,3 +1,3 @@
 # GPS Waypoint Navigation
-Bearing Angle Calculation
-Add/Remove Waypoints
+
+This repository hosts code that can calculate distance, bearing, directions and more using latitude and longitude.
