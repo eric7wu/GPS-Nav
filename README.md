@@ -4,7 +4,8 @@ This repository hosts functions that can calculate distance, bearing, directions
 
 Running main.cpp will cause a UI to appear. Initially there will be a prompt to type in the number of coordinates you want to enter. You will then input that amount of coordinates. This will then generate a vector with directions in the form of magnitude and angle.
 
-```Type in the number of coordinates you want to enter?
+```
+Type in the number of coordinates you want to enter?
 
 Please type in your coordinates:
 ...
