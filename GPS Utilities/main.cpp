@@ -7,27 +7,6 @@
 #include <iostream>
 using namespace std;
 
-/*
-UI:
-
-Type in the number of coordinates you want to enter?
-10
-
-Please type in your coordinates:
-...
-
-Mapping created.
-
-Functions:
-
-add lat lon pos // add point at certain position
-rm pos // remove point at certain position
-ret pos //retrieve point at given position
-sc //see coords
-sd //see direcs
-q //quit
-*/
-
 int main()
 {
     vector<Coordinate> coordinates = {};
