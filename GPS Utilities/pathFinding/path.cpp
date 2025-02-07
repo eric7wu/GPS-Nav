@@ -72,6 +72,10 @@ void Addmapping(vector<Coordinate> &coordinates, vector<directions> &map, int ne
         double way = findHeading(head, bear);
         map.push_back({coordinates.at(newIndex - 1), coordinates.at(newIndex), dis, way});
     }
+    else
+    {
+        cout << "Improper Index entered, try again." << endl;
+    }
 }
 
 void seeCoords(vector<Coordinate> coordinates)

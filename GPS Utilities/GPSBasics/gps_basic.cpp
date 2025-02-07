@@ -1,5 +1,5 @@
 #include <cmath>
-#include "gps_basic.h"
+#include "gps_basic.hpp"
 #define PI 3.1415926535
 #define R 6371000
 
@@ -58,4 +58,21 @@ double angle_change(double dis)
     double hypo_change = 180 * (asin(2 * error / dis) / PI);
 
     return hypo_change;
+}
+
+double distanceWAltitude(double lat1, double lon1, double lat2, double lon2, double alt1, double alt2)
+{
+    double flatDis = distance(lat1, lon1, lat2, lon2);
+
+    double elavationChange = fabs(alt1 - alt2);
+
+    return sqrt(flatDis * flatDis + elavationChange * elavationChange);
+}
+
+double elavationAngle(double lat1, double lon1, double lat2, double lon2, double alt1, double alt2)
+{
+    double dis = distance(lat1, lon1, lat2, lon2);
+    double elavationChange = alt2 - alt1; // Assumes alt2 is the point you want to go to
+
+    return atan2(elavationChange, dis);
 }

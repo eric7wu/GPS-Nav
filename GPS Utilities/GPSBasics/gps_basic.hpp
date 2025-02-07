@@ -42,4 +42,9 @@ double findHeading(double heading, double bearing);
 // Uses distance between two points
 double angle_change(double dis);
 
+// Calculates the distance given a latitude, longitude, and altitude
+double distanceWAltitude(double lat1, double lon1, double lat2, double lon2, double alt1, double alt2);
+
+double elavationAngle(double lat1, double lon1, double lat2, double lon2, double alt1, double alt2);
+
 #endif

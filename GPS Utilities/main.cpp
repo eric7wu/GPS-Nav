@@ -1,5 +1,6 @@
 #include "GPSCommands/commands.cpp"
-#include "pathFinding/path.cpp"
+// #include "pathFinding/path.cpp"
+#include "pathFindingWAltitude/pathAlt.cpp"
 #include <vector>
 #include <string>
 #include <stdio.h>
@@ -9,22 +10,24 @@ using namespace std;
 
 int main()
 {
-    vector<Coordinate> coordinates = {};
-    vector<directions> map = {};
+    vector<CoordinateAlt> coordinates = {};
+    vector<directionsAlt> map = {};
 
     int N;
     cout << "Type in the number of coordinates you want to enter?" << endl;
     cin >> N;
     double lat;
     double lon;
+    double alt;
     int pos;
 
     for (int i = 0; i < N; i++)
     {
         cin >> lat;
         cin >> lon;
+        cin >> alt;
 
-        coordinates.push_back({lat, lon});
+        coordinates.push_back({lat, lon, alt});
     }
 
     mapping(coordinates, map);
@@ -48,15 +51,16 @@ int main()
         {
             cin >> lat;
             cin >> lon;
+            cin >> alt;
             cin >> pos;
 
             if (coordinates.size() > 1)
             {
-                coordinates = add_waypoint(coordinates, {lat, lon}, pos, map);
+                coordinates = add_waypoint(coordinates, {lat, lon, alt}, pos, map);
             }
             else
             {
-                coordinates.push_back({lat, lon});
+                coordinates.push_back({lat, lon, alt});
                 mapping(coordinates, map);
             }
         }
@@ -69,8 +73,8 @@ int main()
         else if (token == "ret")
         {
             cin >> pos;
-            Coordinate point = retrieve(coordinates, pos);
-            cout << "Lat: " << point.lat << " Lon: " << point.lon << endl;
+            CoordinateAlt point = retrieve(coordinates, pos);
+            cout << "Lat: " << point.lat << " Lon: " << point.lon << " Alt: " << point.alt << endl;
         }
         else if (token == "sc")
         {
