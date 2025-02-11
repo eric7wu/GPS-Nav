@@ -12,6 +12,8 @@ This is a helper file
 #include <cmath>
 #include <iostream>
 #include <vector>
+#include "../GPSBasics/gps_basic.hpp"
+#include "../GPSCommands/commands.hpp"
 
 using namespace std;
 

@@ -1,5 +1,5 @@
 #include "GPSCommands/commands.cpp"
-// #include "pathFinding/path.cpp"
+#include "pathFinding/path.cpp"
 #include "pathFindingWAltitude/pathAlt.cpp"
 #include <vector>
 #include <string>
@@ -40,12 +40,12 @@ int main()
     string token;
     while (true)
     {
+        cin >> token;
         if (cin.fail() || token == "q")
         {
             cout << "exiting..." << endl;
             break;
         }
-        cin >> token;
 
         if (token == "add")
         {

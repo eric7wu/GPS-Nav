@@ -87,7 +87,7 @@ void seeCoords(vector<CoordinateAlt> coordinates)
 {
     for (CoordinateAlt p : coordinates)
     {
-        printf("Lat: %f, Lon: %f, Elv: %f\n", p.lat, p.lon, p.alt);
+        printf("Lat: %f, Lon: %f, Alt: %f\n", p.lat, p.lon, p.alt);
     }
     printf("\n");
 }

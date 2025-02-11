@@ -2,10 +2,10 @@
 #include <vector>
 #include <stdio.h>
 #include "commands.hpp"
-// #include "../pathFinding/path.h"
+#include "../pathFinding/path.hpp"
 #include "../pathFindingWAltitude/pathAlt.hpp"
 using namespace std;
-/*
+
 Coordinate retrieve(vector<Coordinate> coordinates, int pos)
 {
     if (pos < 1 || pos > coordinates.size())
@@ -53,7 +53,7 @@ vector<Coordinate> remove_waypoint(vector<Coordinate> coordinates, int pos)
         return coordinates;
     }
 }
-*/
+
 // For coordinatesAlt, or with altitude
 
 CoordinateAlt retrieve(vector<CoordinateAlt> coordinates, int pos)

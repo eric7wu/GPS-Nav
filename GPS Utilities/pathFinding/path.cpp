@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <cmath>
 #include "../GPSBasics/gps_basic.cpp"
-#include "../GPSCommands/commands.h"
+#include "../GPSCommands/commands.hpp"
 #include <iostream>
 #include <vector>
 using namespace std;
